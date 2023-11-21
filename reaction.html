@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reaction Time Test</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="reaction.js" defer></script>
+
+    <link rel="stylesheet" href="reaction.css">
+    <link rel="stylesheet" href="nav.css"> 
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">SapienBenchmark</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="home.html">Dashboard</a></li>
+                <li><a href="#">Stats</a></li>
+                <li class="dropdown active">
+                    <a class="dropdown-toggle active" data-toggle="dropdown" href="#">Games
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="active"><a href="reaction.html">Reaction Time</a></li>
+                        <li><a href="aimtrainer.html">Aim Trainer</a></li>
+                        <li><a href="typing.html">Typing Speed</a></li>
+                        <li><a href="verbalmemory.html">Verbal Memory</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              </ul>
+          </div>
+          
+        </div>
+    </nav>
+    <div id="reactionTestArea" onclick="handleClick()">
+        <p id="reactionTime"></p>
+        <p id="name">Reaction Time Test</p>
+        <h2 id="instruction">When the red box turns green, click as quickly as you can. <br> Click anywhere to start</h2>
+        <div id="endTestOptions" style="text-align:center;">
+            <button id="saveScore" onclick="saveScore()" style="display:none;">Save Score</button>
+            <button id="tryAgain" onclick="tryAgain()" style="display:none;">Try Again</button>
+        </div>
+    </div>
+
+
+</body>
+</html>

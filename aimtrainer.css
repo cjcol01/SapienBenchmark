@@ -1,0 +1,90 @@
+
+
+.target {
+  display: grid;
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+}
+
+.reactionTestArea {
+  width: 100vw;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #2b87d1!important;
+}
+
+.box {
+    width: 700px;
+    height: 700px;
+    position: relative;
+    border: 1px solid #ccc; 
+}
+
+
+
+.cross {
+  background-color: black;
+  height: 10px;
+  position: relative;
+  width: 2px;
+  border-radius: 0;
+}
+
+.cross:after {
+    background-color: black;
+    content: "";
+    height: 2px;
+    left: -4px;
+    position: absolute;
+    top: 4px;
+    width: 10px;
+}
+
+.cross, .cross:after {
+z-index: 10;
+}
+
+body {
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: rgba(88, 88, 250, 0.24);
+}
+
+
+.css-q4kt6s {
+    position: absolute;
+    border-radius: 50%;
+    animation: 0.2s ease-out 0s 1 normal none running animation-1xkpce6;
+}
+
+.css-12ibl39 {
+    background-color: rgb(43, 135, 209)!important;
+    position: relative;
+    cursor: pointer;
+    color: white;
+    user-select: none;
+    overflow: hidden;
+    text-align: center;
+}
+
+.css-17nnhwz {
+    position: absolute;
+    background: white;
+    transform: translate(-50%, -50%);
+}
+
+.css-z6vxiy {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid white;
+  transform: translate(-50%, -50%);
+}
