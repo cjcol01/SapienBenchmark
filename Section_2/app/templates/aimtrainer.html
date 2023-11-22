@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Aim Trainer</title>
+
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../static/CSS/aimtrainer.css" />
+        <link rel="stylesheet" href="../static/CSS/nav.css" />
+
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button
+                        type="button"
+                        class="navbar-toggle collapsed"
+                        data-toggle="collapse"
+                        data-target="#navbar"
+                        aria-expanded="false"
+                        aria-controls="navbar"
+                    >
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">SapienBenchmark</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Dashboard</a></li>
+                        <li><a href="#">Stats</a></li>
+                        <li class="dropdown active">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+                                >Games <span class="caret"></span
+                            ></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/reaction">Reaction Time</a></li>
+                                <li class="active"><a href="/aimtrainer">Aim Trainer</a></li>
+                                <li><a href="/typing">Typing Speed</a></li>
+                                <li><a href="/verbalmemory">Verbal Memory</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/signup"
+                                ><span class="glyphicon glyphicon-user"></span> Sign Up</a
+                            >
+                        </li>
+                        <li>
+                            <a href="/login"
+                                ><span class="glyphicon glyphicon-log-in"></span> Login</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </head>
+    <body>
+        <div class="reactionTestArea">
+            <p>Click Count: <span id="clickCount">0</span></p>
+            <p>Time to Click: <span id="timeToClick">0</span> ms</p>
+
+            <!-- used from human benchmark https://humanbenchmark.com/tests/aim -->
+            <div class="box">
+                <div data-aim-target="true" class="css-q4kt6s e6yfngs1" onclick="recordClick()">
+                    <div class="css-ad1j3y e6yfngs2"></div>
+                    <div
+                        class="css-z6vxiy e6yfngs3"
+                        style="width: 33.333px; height: 33.333px"
+                    ></div>
+                    <div
+                        class="css-z6vxiy e6yfngs3"
+                        style="width: 66.667px; height: 66.667px"
+                    ></div>
+                    <div class="css-z6vxiy e6yfngs3" style="width: 100px; height: 100px"></div>
+                    <div class="css-17nnhwz e6yfngs4" style="width: 2px; height: 100px"></div>
+                    <div class="css-17nnhwz e6yfngs4" style="width: 100px; height: 2px"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../static/JS/aimtrainer.js"></script>
+    </body>
+</html>
