@@ -83,12 +83,12 @@ html, body {
 @media (max-width: 700px) {
     .panel, .test {
         width: 90%;
-        margin-top: 10px; /* Adjust top margin as needed */
-        padding: 10px; /* Adjust padding as needed */
+        margin-top: 10px;
+        padding: 10px;
     }
 
     .table {
-        width: 90%; /* Set table width to 100% */
+        width: 90%;
     }
     .username{
         font-size: 5vw;
