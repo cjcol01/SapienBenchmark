@@ -46,7 +46,7 @@ function handleClick() {
     const reactionTimeDisplay = document.getElementById('reactionTime');
 
     if (attempts >= 3) {
-        // Do not allow more attempts if the user has already completed three
+        // Dont allow more attempts if attempts
         return;
     }
 
