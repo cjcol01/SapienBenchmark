@@ -42,7 +42,6 @@ body {
 #styledText {
     white-space: pre-wrap;
     overflow-wrap: break-word;
-    /* Other styling to make it look like a text area */
 }
 
 #hiddenInput {
@@ -50,7 +49,6 @@ body {
     top: 0;
     left: 0;
     opacity: 0;
-    /* Other styling to match the size of styledText */
 }
 
 #reactionTestArea {
