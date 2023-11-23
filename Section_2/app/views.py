@@ -31,11 +31,6 @@ def typing():
 def verbal_memory():
     return render_template('verbalmemory.html')
 
-@app.route('/dashboard', methods=["GET", "POST"])
-@login_required
-def dashboard():
-    return render_template("dashboard.html")
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()

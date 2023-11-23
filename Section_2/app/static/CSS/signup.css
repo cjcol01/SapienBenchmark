@@ -9,25 +9,19 @@ body {
 
 .test {
     margin-top: 10% !important;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
-    border-radius: 8px;
     padding: 20px;
     width: 40%;
     margin: 0 auto;
-    background-color: #2b87d1;
+    /* background-color: #2b87d1; */
     display: block;
     margin-top: 20px;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 30px;
-    padding-bottom: 30px;
 }
 
 .blue {
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    /* padding: 20px; */
+    border-radius: 30px;
+    border: black solid 3px;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Pixelify+Sans&display=swap");
@@ -84,20 +78,21 @@ form {
     align-items: center;
     justify-content: center;
     height: 150px;
-    border-radius: 0 0 75px 75px;
+    border-radius: 30px;
     width: 100%;
-    border: none !important;
 }
 
 .top:hover {
     transition: 0.4s;
     border-radius: 0;
+    border-radius: 30px 30px 10px 10px;
+
     width: 100%;
 }
 
 .top:not(:hover) {
     transition: 0.4s;
-    border-radius: 0 0 75px 75px;
+    border-radius: 30px 30px 75px 75px;
     width: 100%;
 }
 
@@ -144,9 +139,12 @@ button:not(:hover) {
     font-size: 12px;
 }
 
-@media screen and (max-width: 338px) {
+@media screen and (max-width: 1000px) {
     #container {
         min-width: 250px;
+    }
+    .test {
+        width: 80%;
     }
     .top:hover {
         border-radius: 0;
@@ -164,5 +162,20 @@ button:not(:hover) {
         box-shadow: none;
         transition: none;
         border: solid 1px #ccc;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .test {
+        width: 100%;
+        background-color: transparent !important;
+        box-shadow: none;
+    }
+    .blue {
+        border-radius: 30px;
+        border: black solid 3px;
+    }
+    .top {
+        border-radius: 30px !important;
     }
 }
