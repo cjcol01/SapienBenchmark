@@ -1,8 +1,7 @@
-from app import db
+from . import db
+from flask_login import UserMixin
 
-class Property(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    address = db.Column(db.String(500), index=True, unique=True)
-    start_date = db.Column(db.DateTime)
-    duration = db.Column(db.Integer)
-    rent = db.Column(db.Float)
+    username = db.Column(db.String(20), nullable=False, unique=True)
+    password = db.Column(db.String(80), nullable=False)

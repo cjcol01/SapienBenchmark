@@ -1,56 +1,13 @@
-import os
-from flask import Flask, render_template, url_for, redirect, flash, session
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import InputRequired, Length, ValidationError
-from flask_bcrypt import Bcrypt
-
-# Initialize the Flask application
-app = Flask(__name__)
-
-# Configuration
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///' + os.path.join(basedir, '../app.db')
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-app.config["SECRET_KEY"] = "thisisasecretkey"
-app.config["WTF_CSRF_ENABLED"] = True
-
-# Initialize extensions
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = "login"
+from flask import render_template, redirect, url_for, flash, session
+from . import app, db, bcrypt, login_manager
+from .models import User
+from .forms import RegisterForm, LoginForm
+from flask_login import current_user, login_user, logout_user, login_required
 
 # User loader
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
-# User model
-class User(db.Model, UserMixin):  
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), nullable=False, unique=True)  
-    password = db.Column(db.String(80), nullable=False)
-
-# Registration form
-class RegisterForm(FlaskForm):
-    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
-    password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Password"})
-    submit = SubmitField("Register")
-
-    def validate_username(self, username):
-        existing_user_name = User.query.filter_by(username=username.data).first()
-        if existing_user_name:
-            raise ValidationError("That username already exists. Please choose a different one.")
-
-# Login form
-class LoginForm(FlaskForm):
-    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
-    password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Password"})
-    submit = SubmitField("Login")
 
 @app.route('/')
 def home():
@@ -74,10 +31,6 @@ def typing():
 def verbal_memory():
     return render_template('verbalmemory.html')
 
-# @app.route('/signup')
-# def signup():
-#     return render_template('signup.html')
-
 @app.route('/dashboard', methods=["GET", "POST"])
 @login_required
 def dashboard():
@@ -98,7 +51,7 @@ def login():
 def logout():
     logout_user()
     session.clear()
-    return redirect(url_for("login"))
+    return redirect(url_for("home"))
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -111,8 +64,6 @@ def signup():
         flash('Registration successful! You can now log in.', 'success')
         return redirect(url_for("login"))
     return render_template("signup.html", form=form)
-
-# Additional routes (aim trainer, reaction, etc.) can be added here
 
 # Run the application
 if __name__ == '__main__':
