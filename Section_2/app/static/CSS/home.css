@@ -1,24 +1,31 @@
-html, body {
+html {
     margin: 0;
     padding: 0;
-    font-family: 'Arabic Transparent', Arial, sans-serif; 
-    text-align: center;
-    background-color: #e6e8f4;
 }
 
-.btn{
+body {
+    font-family: "Arabic Transparent", Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to bottom, white, #dfb7e3);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+.btn {
     background-color: #257cff;
 }
 
-.text{
+.text {
     padding-left: 20px !important;
 }
-.panel, .test {
+
+.panel,
+.test {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 20px;
     width: 50%;
-    margin: 0 auto; 
+    margin: 0 auto;
     background-color: white;
     display: block;
     margin-top: 20px;
@@ -28,60 +35,60 @@ html, body {
 }
 
 .progress-bar {
-    background-color: #257cff; 
+    background-color: #257cff;
     text-align: center;
-    padding-left: 10px; 
+    padding-left: 10px;
 }
 
-.left{
+.left {
     text-align: left;
 }
 
-.username{
+.username {
     font-size: 2vw;
     font-weight: 600;
 }
 
-.gray{
-    color: #858585
+.gray {
+    color: #858585;
 }
 
 .welcome {
-    font-size: 1.2vw!important;
+    font-size: 1.2vw !important;
 }
 
-.date{
+.date {
     font-size: 1vw;
     font-weight: 600;
 }
 
-.name{
-    padding-top: 1.5vh!important;
+.name {
+    padding-top: 1.5vh !important;
     font-size: 1vw;
     font-weight: 600;
 }
 
 .table-striped > tbody > tr:nth-child(odd) {
-    background-color: #f8f8f8 
+    background-color: #f8f8f8;
 }
 
 .table-striped > tbody > tr:nth-child(even) {
-    background-color: white; 
+    background-color: white;
 }
 
-.soon{
+.soon {
     padding-top: 1vh;
     font-size: larger;
     font-weight: bold;
 }
 
-.score{
-    padding-top: 1.5vh!important;
-
+.score {
+    padding-top: 1.5vh !important;
 }
 
 @media (max-width: 700px) {
-    .panel, .test {
+    .panel,
+    .test {
         width: 90%;
         margin-top: 10px;
         padding: 10px;
@@ -90,16 +97,16 @@ html, body {
     .table {
         width: 90%;
     }
-    .username{
+    .username {
         font-size: 5vw;
     }
     .welcome {
-        font-size: 4vw!important;
+        font-size: 4vw !important;
     }
-    .date{
+    .date {
         font-size: 4vw;
     }
-    .name{
+    .name {
         font-size: 3.5vw;
     }
 }

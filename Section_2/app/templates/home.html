@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Benchmark Dashboard</title>
+    <title>SapienBenchmark Dashboard</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="home.css">
-    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="../static/CSS/home.css">
+    <link rel="stylesheet" href="../static/CSS/nav.css">
 
 </head>
 <body>
@@ -32,16 +32,16 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Games
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="reaction.html">Reaction Time</a></li>
-                        <li><a href="aimtrainer.html">Aim Trainer</a></li>
-                        <li><a href="typing.html">Typing Speed</a></li>
-                        <li><a href="verbalmemory.html">Verbal Memory</a></li>
+                        <li><a href="/reaction">Reaction Time</a></li>
+                        <li><a href="/aimtrainer">Aim Trainer</a></li>
+                        <li><a href="/typing">Typing Speed</a></li>
+                        <li><a href="/verbalmemory">Verbal Memory</a></li>
                     </ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
               </ul>
           </div>
           
@@ -52,7 +52,7 @@
         <section class="test">
             <div class="text">
                 <h2 class="left gray welcome">Welcome</h2>
-                <h3 class="left username">cjcol12</h3>
+                <h3 class="left username">{{ username }}</h3>
                 <h4 class="left gray welcome">Joined</h4>
                 <h5 class="left date">21/11/23</h5>
             </div>
@@ -74,8 +74,8 @@
                             <tr>
                                 <td class="left name">Reaction Time</td>
                                 <td class="left">
-                                    <button class="btn btn-primary" onclick="location.href='reaction.html'">Play</button>
-                                    <button class="btn btn-primary" onclick="location.href='reaction.html'">Stats</button>                                </td>
+                                    <button class="btn btn-primary" onclick="location.href='/reaction'">Play</button>
+                                    <button class="btn btn-primary" onclick="location.href='/reaction'">Stats</button>                                </td>
                                 <td class="left score">166 ms</td>
                                 <td>
                                     <div class="progress">
@@ -88,8 +88,8 @@
                             <tr>
                                 <td class="left name">Aim Trainer</td>
                                 <td class="left">
-                                    <button class="btn btn-primary" onclick="location.href='aimtrainer.html'">Play</button>
-                                    <button class="btn btn-primary" onclick="location.href='aimtrainer.html'">Stats</button>
+                                    <button class="btn btn-primary" onclick="location.href='/aimtrainer'">Play</button>
+                                    <button class="btn btn-primary" onclick="location.href='/aimtrainer'">Stats</button>
                                 </td>
                                 <td class="left score">166 ms</td>
                                 <td class="prog">
@@ -103,8 +103,8 @@
                             <tr>
                                 <td class="left name">Typing Speed Test</td>
                                 <td class="left">
-                                    <button class="btn btn-primary" onclick="location.href='typing.html'">Play</button>
-                                    <button class="btn btn-primary" onclick="location.href='typing.html'">Stats</button>
+                                    <button class="btn btn-primary" onclick="location.href='/typing'">Play</button>
+                                    <button class="btn btn-primary" onclick="location.href='/typing'">Stats</button>
                                 </td>
                                 <td class="left score">166 ms</td>
                                 <td>
@@ -118,8 +118,8 @@
                             <tr>
                                 <td class="left name">Verbal Memory Test</td>
                                 <td class="left">
-                                    <button class="btn btn-primary" onclick="location.href='reaction.html'">Play</button>
-                                    <button class="btn btn-primary" onclick="location.href='reaction.html'">Stats</button>
+                                    <button class="btn btn-primary" onclick="location.href='/reaction'">Play</button>
+                                    <button class="btn btn-primary" onclick="location.href='/reaction'">Stats</button>
                                 </td>
                                 <td class="left score">166 ms</td>
                                 <td>
@@ -174,20 +174,7 @@
                     </table>
                 </div>
             </div>
-
-            <h2>Reaction Time Test</h2>
-            <p>Test your visual reflexes.</p>
-            <button class="btn btn-primary" onclick="location.href='reaction.html'">Play</button>
-            <button class="btn btn-default">Stats</button>
-            <p><br></p>
-            <p>166 ms</p>
-
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: 92.3%;">
-                    92.3%
-                </div>
-            </div>
-        </section> -->
+        </section>
     </main>
 </body>
 </html>
