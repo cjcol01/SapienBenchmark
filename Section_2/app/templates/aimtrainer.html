@@ -77,9 +77,9 @@
             <p>Click Count: <span id="clickCount">0</span></p>
             <p>Time to Click: <span id="timeToClick">0</span> ms</p>
 
-            <!-- used from human benchmark https://humanbenchmark.com/tests/aim -->
+            <!-- target used from human benchmark https://humanbenchmark.com/tests/aim -->
             <div class="box">
-                <div data-aim-target="true" class="css-q4kt6s e6yfngs1" onclick="recordClick()">
+                <div data-aim-target="true" class="css-q4kt6s e6yfngs1">
                     <div class="css-ad1j3y e6yfngs2"></div>
                     <div
                         class="css-z6vxiy e6yfngs3"
@@ -94,7 +94,15 @@
                     <div class="css-17nnhwz e6yfngs4" style="width: 100px; height: 2px"></div>
                 </div>
             </div>
+            <button id="saveScore" style="display: none" onclick="saveScore()">Save Score</button>
         </div>
+
+        <form action="{{ url_for('submit_aim_score') }}" method="post" id="scoreForm">
+            <input type="hidden" name="score" id="scoreInput" />
+            <button type="submit" class="btn btn-primary" id="submitScoreBtn" style="display: none">
+                Save Score
+            </button>
+        </form>
 
         <script src="../static/JS/aimtrainer.js"></script>
     </body>

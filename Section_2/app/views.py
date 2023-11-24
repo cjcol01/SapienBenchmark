@@ -5,7 +5,6 @@ from .forms import RegisterForm, LoginForm
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import datetime
 
-
 # User loader
 @login_manager.user_loader
 def load_user(user_id):
@@ -18,19 +17,26 @@ def home():
         signup_date = current_user.signup_date
 
         # Query to calculate the average score for the reaction game
-        avg_score_query = db.session.query(db.func.avg(PlaySession.score)).filter(
+        avg_score_reaction_query = db.session.query(db.func.avg(PlaySession.score)).filter(
             PlaySession.user_id == current_user.id,
             PlaySession.game_id == GAME_ID_FOR_REACTION
         )
-        avg_score_result = avg_score_query.scalar() or 0  # Default to 0 if no scores
-        avg_score_int = int(round(avg_score_result))  # Convert the rounded score to an integer
+        avg_reaction = avg_score_reaction_query.scalar() or 0
+        avg_reaction = int(round(avg_reaction))
 
+        # Query to calculate the average score for the aim trainer game
+        avg_score_aim_query = db.session.query(db.func.avg(PlaySession.score)).filter(
+            PlaySession.user_id == current_user.id,
+            PlaySession.game_id == GAME_ID_FOR_AIM
+        )
+        avg_aim = avg_score_aim_query.scalar() or 0
+        avg_aim = int(round(avg_aim))
 
-        return render_template('home.html', username=username, signup_date=signup_date, avg_score=avg_score_int)
+        return render_template('home.html', username=username, signup_date=signup_date, avg_score_reaction=avg_reaction, avg_score_aim=avg_aim)
 
     else:
         # Handle guest or non-logged in users
-        return render_template('home.html', username="guest", signup_date=None, avg_score=None)
+        return render_template('home.html', username="guest", signup_date=None, avg_score_reaction=None, avg_score_aim=None)
 
 
 @app.route('/aimtrainer')
@@ -97,6 +103,24 @@ def submit_reaction_score():
 
     flash("Score saved successfully!", "success")
     return redirect(url_for('home'))
+
+GAME_ID_FOR_AIM = 2
+@app.route('/submit_aim_score', methods=['POST'])
+def submit_aim_score():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+
+    score = request.form.get('score')
+    print("Score is", score)
+
+    # Validate and process the score, update the database, etc.
+    play_session = PlaySession(user_id=current_user.id, game_id=GAME_ID_FOR_AIM, score=score, date_played=datetime.utcnow())
+    db.session.add(play_session)
+    db.session.commit()
+
+    return redirect(url_for('home'))
+
+
 
 # Run the application
 if __name__ == '__main__':
