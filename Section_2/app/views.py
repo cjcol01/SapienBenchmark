@@ -1,8 +1,10 @@
-from flask import render_template, redirect, url_for, flash, session
+from flask import render_template, redirect, url_for, flash, session, request
 from . import app, db, bcrypt, login_manager
-from .models import User
+from .models import User, PlaySession, Game, UserGame
 from .forms import RegisterForm, LoginForm
 from flask_login import current_user, login_user, logout_user, login_required
+from datetime import datetime
+
 
 # User loader
 @login_manager.user_loader
@@ -11,9 +13,24 @@ def load_user(user_id):
 
 @app.route('/')
 def home():
-    username = current_user.username if current_user.is_authenticated else "guest"
-    signup_date = current_user.signup_date
-    return render_template('home.html', username=username, signup_date=signup_date)
+    if current_user.is_authenticated:
+        username = current_user.username
+        signup_date = current_user.signup_date
+
+        # Query to calculate the average score for the reaction game
+        avg_score_query = db.session.query(db.func.avg(PlaySession.score)).filter(
+            PlaySession.user_id == current_user.id,
+            PlaySession.game_id == GAME_ID_FOR_REACTION
+        )
+        avg_score_result = avg_score_query.scalar() or 0  # Default to 0 if no scores
+        avg_score_int = int(round(avg_score_result))  # Convert the rounded score to an integer
+
+
+        return render_template('home.html', username=username, signup_date=signup_date, avg_score=avg_score_int)
+
+    else:
+        # Handle guest or non-logged in users
+        return render_template('home.html', username="guest", signup_date=None, avg_score=None)
 
 
 @app.route('/aimtrainer')
@@ -61,6 +78,25 @@ def signup():
         flash('Registration successful! You can now log in.', 'success')
         return redirect(url_for("login"))
     return render_template("signup.html", form=form)
+
+# move to config
+GAME_ID_FOR_REACTION = 1
+
+@app.route('/submit_reaction_score', methods=['POST'])
+def submit_reaction_score():
+    if not current_user.is_authenticated:
+        flash("You need to be logged in to save your score.", "warning")
+        return redirect(url_for('login'))
+
+    score = request.form.get('score')
+    # Validate and process the score, update the database, etc.
+
+    play_session = PlaySession(user_id=current_user.id, game_id=GAME_ID_FOR_REACTION, score=score, date_played=datetime.utcnow())
+    db.session.add(play_session)
+    db.session.commit()
+
+    flash("Score saved successfully!", "success")
+    return redirect(url_for('home'))
 
 # Run the application
 if __name__ == '__main__':

@@ -80,11 +80,12 @@
                                 <td class="left">
                                     <button class="btn btn-primary" onclick="location.href='/reaction'">Play</button>
                                     <button class="btn btn-primary" onclick="location.href='/reaction'">Stats</button>                                </td>
-                                <td class="left score">166 ms</td>
+                                <td class="left score">{{ avg_score|default('N/A', true) }} ms</td>
                                 <td>
+                                    <!-- Calculation for the progress bar's width and percentage goes here -->
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 92.3%;">
-                                            92.3%
+                                        <div class="progress-bar" role="progressbar" style="width: calculated_width;">
+                                            calculated_percentage%
                                         </div>
                                     </div>
                                 </td>
