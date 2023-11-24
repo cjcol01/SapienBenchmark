@@ -12,7 +12,8 @@ def load_user(user_id):
 @app.route('/')
 def home():
     username = current_user.username if current_user.is_authenticated else "guest"
-    return render_template('home.html', username=username)
+    signup_date = current_user.signup_date
+    return render_template('home.html', username=username, signup_date=signup_date)
 
 
 @app.route('/aimtrainer')
@@ -35,11 +36,11 @@ def verbal_memory():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
             return redirect(url_for("home"))
-    return render_template("login main.html", form=form)
+    return render_template("login.html", form=form)
 
 @app.route("/logout", methods=["GET", "POST"])
 @login_required
@@ -53,7 +54,8 @@ def signup():
     form = RegisterForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        new_user = User(username=form.username.data, password=hashed_password)
+        # Include email data from the form
+        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
         flash('Registration successful! You can now log in.', 'success')

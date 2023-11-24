@@ -81,13 +81,7 @@
 
                 <form method="POST" action="">
                     {{ form.hidden_tag() }}
-                    <input
-                        type=""
-                        placeholder="Email"
-                        class="input"
-                        name="username"
-                        value="{{ form.username.data }}"
-                    />
+                    <input type="email" placeholder="Email" class="input" name="email" required />
                     <input type="password" placeholder="Password" class="input" name="password" />
 
                     <button name="signup" type="submit">Log In</button>
