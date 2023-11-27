@@ -80,7 +80,7 @@
                                 <td class="left">
                                     <button class="btn btn-primary" onclick="location.href='/reaction'">Play</button>
                                     <button class="btn btn-primary" onclick="location.href='/reaction'">Stats</button>                                </td>
-                                <td class="left score">{{ avg_reaction + " ms" |default('N/A', true) }}</td>
+                                <td class="left score">{{ avg_reaction + " ms" | default('N/A', true) }}</td>
                                 <td>
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: {{ reaction_percentage }}%;">

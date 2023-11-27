@@ -6,4 +6,4 @@ source flask/bin/activate
 cd Section_2
 export FLASK_APP=run.py
 export FLASK_DEBUG=1
-flask run --port=1024
+flask run --port=2048

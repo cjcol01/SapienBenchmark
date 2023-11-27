@@ -16,7 +16,7 @@ def home():
         username = current_user.username
         signup_date = current_user.signup_date
 
-        # Query to calculate the average score for the reaction game
+        # calculate the average score for reaction game
         avg_score_reaction_query = db.session.query(db.func.avg(PlaySession.score)).filter(
             PlaySession.user_id == current_user.id,
             PlaySession.game_id == GAME_ID_FOR_REACTION
@@ -24,7 +24,7 @@ def home():
         avg_reaction = avg_score_reaction_query.scalar() or 0
         avg_reaction = int(round(avg_reaction))
 
-        # Query to calculate the average score for the aim trainer game
+        # calculate the average score for aim trainer game
         avg_score_aim_query = db.session.query(db.func.avg(PlaySession.score)).filter(
             PlaySession.user_id == current_user.id,
             PlaySession.game_id == GAME_ID_FOR_AIM
@@ -32,7 +32,7 @@ def home():
         avg_aim = avg_score_aim_query.scalar() or 0
         avg_aim = int(round(avg_aim))
 
-
+        # calculate the average score for typing game
         avg_score_typing_query = db.session.query(db.func.avg(PlaySession.score)).filter(
             PlaySession.user_id == current_user.id,
             PlaySession.game_id == GAME_ID_FOR_TYPING
@@ -40,6 +40,7 @@ def home():
         avg_typing = avg_score_typing_query.scalar() or 0
         avg_typing = int(round(avg_typing))
 
+        # calculate the average score for verbal memory game
         avg_score_verbal_memory_query = db.session.query(db.func.avg(PlaySession.score)).filter(
             PlaySession.user_id == current_user.id,
             PlaySession.game_id == GAME_ID_FOR_VERBAL_MEMORY
@@ -62,7 +63,12 @@ def home():
     else:
         # Handle guest or non-logged in users
         signup_date = datetime.now()
-        return render_template('home.html', username="guest", signup_date=signup_date, avg_score_reaction=None, avg_score_aim=None)
+        return render_template('home.html', username="guest", signup_date=signup_date, 
+        avg_reaction=None, reaction_percentage=None, 
+        avg_aim=None, aim_percentage=None,
+        avg_typing=None, typing_percentage=None,
+        avg_verbal_memory=None, verb_mem_percentage=None )
+
 
 
 @app.route('/aimtrainer')
