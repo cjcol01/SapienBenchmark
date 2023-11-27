@@ -59,23 +59,25 @@ body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background-color: #2b87d1!important;
+    background-color: #2b87d1 !important;
 }
 
-button{
+button {
     background-color: #ffd154;
     border-radius: 5px;
     border: none;
-    font-size: 1vw;
-    padding: 5px;
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.white{
+.white {
     color: white;
     font-size: 5vw;
 }
 
-.challenge{
+.challenge {
     color: white;
 }
 

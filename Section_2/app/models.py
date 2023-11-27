@@ -25,7 +25,7 @@ class PlaySession(db.Model):
     score = db.Column(db.Integer, nullable=False)
     date_played = db.Column(db.DateTime, default=datetime.utcnow)
 
-# UserGame associative table for many-to-many relationship
+# UserGame table for many-to-many relationship
 class UserGame(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey('game.id'), primary_key=True)

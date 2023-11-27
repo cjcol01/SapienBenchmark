@@ -80,12 +80,11 @@
                                 <td class="left">
                                     <button class="btn btn-primary" onclick="location.href='/reaction'">Play</button>
                                     <button class="btn btn-primary" onclick="location.href='/reaction'">Stats</button>                                </td>
-                                <td class="left score">{{ avg_score_reaction|default('N/A', true) }} ms</td>
+                                <td class="left score">{{ avg_reaction + " ms" |default('N/A', true) }}</td>
                                 <td>
-                                    <!-- Calculation for the progress bar's width and percentage goes here -->
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: calculated_width;">
-                                            calculated_percentage%
+                                        <div class="progress-bar" role="progressbar" style="width: {{ reaction_percentage }}%;">
+                                            {{ reaction_percentage }}%
                                         </div>
                                     </div>
                                 </td>
@@ -96,11 +95,11 @@
                                     <button class="btn btn-primary" onclick="location.href='/aimtrainer'">Play</button>
                                     <button class="btn btn-primary" onclick="location.href='/aimtrainer'">Stats</button>
                                 </td>
-                                <td class="left score">{{ avg_score_aim |default('N/A', true) }} ms</td>
+                                <td class="left score">{{ (avg_aim) + " ms"| default('N/A', true) }}</td>
                                 <td class="prog">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 92.3%;">
-                                            92.3%
+                                        <div class="progress-bar" role="progressbar" style="width: {{ aim_percentage }}%;">
+                                            {{ aim_percentage }}%
                                         </div>
                                     </div>
                                 </td>
@@ -111,11 +110,11 @@
                                     <button class="btn btn-primary" onclick="location.href='/typing'">Play</button>
                                     <button class="btn btn-primary" onclick="location.href='/typing'">Stats</button>
                                 </td>
-                                <td class="left score">166 ms</td>
+                                <td class="left score">{{ avg_typing + " WPM" | default('N/A', true)}}</td>
                                 <td>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 92.3%;">
-                                            92.3%
+                                        <div class="progress-bar" role="progressbar" style="width: {{ typing_percentage }}%;">
+                                            {{ typing_percentage }}%
                                         </div>
                                     </div>
                                 </td>
@@ -123,14 +122,14 @@
                             <tr>
                                 <td class="left name">Verbal Memory Test</td>
                                 <td class="left">
-                                    <button class="btn btn-primary" onclick="location.href='/reaction'">Play</button>
-                                    <button class="btn btn-primary" onclick="location.href='/reaction'">Stats</button>
+                                    <button class="btn btn-primary" onclick="location.href='/verbalmemory'">Play</button>
+                                    <button class="btn btn-primary" onclick="location.href='/verbalmemory'">Stats</button>
                                 </td>
-                                <td class="left score">166 ms</td>
+                                <td class="left score">{{ avg_verbal_memory + " points" | default('N/A', true)}}</td>
                                 <td>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 92.3%;">
-                                            92.3%
+                                        <div class="progress-bar" role="progressbar" style="width: {{ verb_mem_percentage }}%;">
+                                            {{ verb_mem_percentage }}%
                                         </div>
                                     </div>
                                 </td>

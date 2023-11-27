@@ -8,8 +8,9 @@
     font-size: 16px;
 }
 
-body{
+body {
     background-color: #e6e8f4;
+    transition: background-color 0.5s;
 }
 
 #reactionTestArea {
@@ -20,20 +21,30 @@ body{
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background-color: #2b87d1!important;
+    background-color: #2b87d1;
 }
 
-#wordDisplay{
+#wordDisplay {
     color: white;
     font-size: 8vw;
 }
-#scoreDisplay{
+#scoreDisplay {
     color: white;
-    font-size: 2vw
+    font-size: 2vw;
 }
 
-button{
+.flash-red {
+    background-color: #ce2636 !important;
+    /* Add transition for a smoother effect */
+    transition: background-color 0.5s;
+}
+
+button {
     background-color: #ffd154;
     border-radius: 5px;
     border: none;
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }

@@ -32,11 +32,37 @@ def home():
         avg_aim = avg_score_aim_query.scalar() or 0
         avg_aim = int(round(avg_aim))
 
-        return render_template('home.html', username=username, signup_date=signup_date, avg_score_reaction=avg_reaction, avg_score_aim=avg_aim)
+
+        avg_score_typing_query = db.session.query(db.func.avg(PlaySession.score)).filter(
+            PlaySession.user_id == current_user.id,
+            PlaySession.game_id == GAME_ID_FOR_TYPING
+        )
+        avg_typing = avg_score_typing_query.scalar() or 0
+        avg_typing = int(round(avg_typing))
+
+        avg_score_verbal_memory_query = db.session.query(db.func.avg(PlaySession.score)).filter(
+            PlaySession.user_id == current_user.id,
+            PlaySession.game_id == GAME_ID_FOR_VERBAL_MEMORY
+        )
+        avg_verbal_memory = avg_score_verbal_memory_query.scalar() or 0
+        avg_verbal_memory = int(round(avg_verbal_memory))
+
+        reaction_percentage = 50
+        aim_percentage = 60
+        typing_percentage = 70
+        verb_mem_percentage = 80
+
+        return render_template('home.html', username=username, 
+        signup_date=signup_date, 
+        avg_reaction=str(avg_reaction), reaction_percentage=reaction_percentage, 
+        avg_aim=str(avg_aim), aim_percentage=aim_percentage,
+        avg_typing=str(avg_typing), typing_percentage=typing_percentage,
+        avg_verbal_memory=str(avg_verbal_memory), verb_mem_percentage=verb_mem_percentage, )
 
     else:
         # Handle guest or non-logged in users
-        return render_template('home.html', username="guest", signup_date=None, avg_score_reaction=None, avg_score_aim=None)
+        signup_date = datetime.now()
+        return render_template('home.html', username="guest", signup_date=signup_date, avg_score_reaction=None, avg_score_aim=None)
 
 
 @app.route('/aimtrainer')
@@ -86,8 +112,7 @@ def signup():
     return render_template("signup.html", form=form)
 
 # move to config
-GAME_ID_FOR_REACTION = 1
-
+GAME_ID_FOR_REACTION = "Reaction"
 @app.route('/submit_reaction_score', methods=['POST'])
 def submit_reaction_score():
     if not current_user.is_authenticated:
@@ -104,7 +129,7 @@ def submit_reaction_score():
     flash("Score saved successfully!", "success")
     return redirect(url_for('home'))
 
-GAME_ID_FOR_AIM = 2
+GAME_ID_FOR_AIM = "Aim"
 @app.route('/submit_aim_score', methods=['POST'])
 def submit_aim_score():
     if not current_user.is_authenticated:
@@ -120,7 +145,44 @@ def submit_aim_score():
 
     return redirect(url_for('home'))
 
+GAME_ID_FOR_TYPING = "Typing"
+@app.route('/submit_typing_score', methods=['POST'])
+def submit_typing_score():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
 
+    score = request.form.get('score')
+    print("Typing Score is", score)
+
+    play_session = PlaySession(user_id=current_user.id, game_id=GAME_ID_FOR_TYPING, score=score, date_played=datetime.utcnow())
+    db.session.add(play_session)
+    db.session.commit()
+
+    return redirect(url_for('home'))
+
+GAME_ID_FOR_VERBAL_MEMORY = "Verb mem"
+@app.route('/submit_verbal_memory_score', methods=['POST'])
+def submit_verbal_memory_score():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+
+    score = request.form.get('score')
+    print("Verbal Memory Score is", score)
+
+    # Save the score to the database
+    play_session = PlaySession(user_id=current_user.id, game_id=GAME_ID_FOR_VERBAL_MEMORY, score=score, date_played=datetime.utcnow())
+    db.session.add(play_session)
+    db.session.commit()
+
+    return redirect(url_for('home'))
+
+@app.route('/user/<int:user_id>/sessions')
+def user_sessions(user_id):
+    # Query to fetch all play sessions with their related game for a specific user
+    sessions = PlaySession.query.filter_by(user_id=user_id).join(Game).all()
+
+    # You can now access game details in your template through each session
+    return render_template('user_sessions.html', sessions=sessions)
 
 # Run the application
 if __name__ == '__main__':

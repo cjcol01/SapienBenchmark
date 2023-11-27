@@ -78,10 +78,20 @@
         <div id="reactionTestArea">
             <div id="wordDisplay"></div>
             <div id="scoreDisplay">Score: 0</div>
-            <div>
+            <div id="gameButton">
                 <button class="button" onclick="userResponse(false)">New Word</button>
                 <button class="button" onclick="userResponse(true)">Seen</button>
             </div>
+            <form
+                action="{{ url_for('submit_verbal_memory_score') }}"
+                method="post"
+                id="verbalMemoryScoreForm"
+            >
+                <input type="hidden" name="score" id="verbalMemoryScoreInput" />
+                <button type="submit" id="saveVerbalMemory" style="display: none">
+                    Save Score
+                </button>
+            </form>
         </div>
     </body>
 </html>

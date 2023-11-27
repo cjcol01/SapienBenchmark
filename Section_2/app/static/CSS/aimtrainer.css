@@ -1,41 +1,42 @@
-
-
 .target {
-  display: grid;
-  border: 1px solid black;
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  grid-template-columns: repeat(20, 1fr);
-  grid-template-rows: repeat(20, 1fr);
+    display: grid;
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: repeat(20, 1fr);
+}
+
+.css-q4kt6s {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .reactionTestArea {
-  width: 100vw;
-  height: 60vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  background-color: #2b87d1!important;
+    width: 100vw;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #2b87d1 !important;
 }
 
 .box {
     width: 700px;
     height: 700px;
     position: relative;
-    border: 1px solid #ccc; 
 }
 
-
-
 .cross {
-  background-color: black;
-  height: 10px;
-  position: relative;
-  width: 2px;
-  border-radius: 0;
+    background-color: black;
+    height: 10px;
+    position: relative;
+    width: 2px;
+    border-radius: 0;
 }
 
 .cross:after {
@@ -48,17 +49,17 @@
     width: 10px;
 }
 
-.cross, .cross:after {
-z-index: 10;
+.cross,
+.cross:after {
+    z-index: 10;
 }
 
 body {
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: rgba(88, 88, 250, 0.24);
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgba(88, 88, 250, 0.24);
 }
-
 
 .css-q4kt6s {
     position: absolute;
@@ -67,7 +68,7 @@ body {
 }
 
 .css-12ibl39 {
-    background-color: rgb(43, 135, 209)!important;
+    background-color: rgb(43, 135, 209) !important;
     position: relative;
     cursor: pointer;
     color: white;
@@ -83,8 +84,18 @@ body {
 }
 
 .css-z6vxiy {
-  position: absolute;
-  border-radius: 50%;
-  border: 2px solid white;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid white;
+    transform: translate(-50%, -50%);
+}
+
+button {
+    background-color: #ffd154;
+    border-radius: 5px;
+    border: none;
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }
