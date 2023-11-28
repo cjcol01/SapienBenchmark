@@ -69,6 +69,7 @@ form {
     border-left: #dfb7e3 solid 1px;
     padding: 10px;
     border-bottom: #dfb7e3 solid 1px;
+    width: 40%;
 }
 
 .top {
@@ -79,6 +80,18 @@ form {
     justify-content: center;
     height: 150px;
     border-radius: 30px;
+    width: 100%;
+}
+
+.test:hover .top {
+    transition: 0.4s;
+    border-radius: 30px 30px 10px 10px;
+    width: 100%;
+}
+
+.top {
+    transition: 0.4s;
+    border-radius: 30px 30px 75px 75px;
     width: 100%;
 }
 
@@ -140,6 +153,12 @@ button:not(:hover) {
     padding-bottom: 10px;
 }
 
+.form-error {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+}
+
 @media screen and (max-width: 1000px) {
     #container {
         min-width: 250px;
@@ -164,6 +183,9 @@ button:not(:hover) {
         transition: none;
         border: solid 1px #ccc;
     }
+    .input {
+        width: 60%;
+    }
 }
 
 @media screen and (max-width: 500px) {
@@ -179,4 +201,19 @@ button:not(:hover) {
     .top {
         border-radius: 30px !important;
     }
+    .input {
+        width: 90%;
+    }
+}
+.form-error {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

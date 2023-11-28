@@ -1,6 +1,1 @@
-change bootstrap blue
-change red green
-change table typing
-percentile contrast
 typing - have some way of telling you 
-make table heading larger

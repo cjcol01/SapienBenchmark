@@ -11,7 +11,6 @@ body {
 }
 
 #quote {
-    /* border: 1px solid #ddd; */
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 8px;
@@ -28,11 +27,11 @@ body {
 }
 
 #input.correct {
-    border: 5px solid rgb(0, 201, 0);
+    border: 7px solid rgb(0, 201, 0);
 }
 
 #input.incorrect {
-    border: 5px solid red;
+    border: 7px solid red;
 }
 
 #textAreaWrapper {
@@ -70,6 +69,7 @@ button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    margin-left: 40%;
 }
 
 .white {
@@ -83,4 +83,8 @@ button {
 
 #input:focus {
     outline: none;
+}
+
+#reset {
+    display: none;
 }

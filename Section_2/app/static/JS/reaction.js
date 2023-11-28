@@ -64,7 +64,7 @@ function handleClick() {
         message.textContent = "Wait for green";
         dissapear.textContent = "";
 
-        const randomDelay = Math.random() * 20 + 10; // Random time between 1 and 3 seconds
+        const randomDelay = Math.random() * 2000 + 10; // Random time between 1 and 3 seconds
         timeout = setTimeout(() => {
             testArea.classList.replace("red", "green");
             if (attempts <= 2) {

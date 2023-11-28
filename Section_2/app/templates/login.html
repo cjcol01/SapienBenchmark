@@ -79,15 +79,22 @@
                     <h1>Log In Page</h1>
                 </div>
 
-                <form method="POST" action="">
+                <form method="POST" action="" id="loginForm">
                     {{ form.hidden_tag() }}
-                    <input type="email" placeholder="Email" class="input" name="email" required />
-                    <input type="password" placeholder="Password" class="input" name="password" />
-
-                    <button name="signup" type="submit">Log In</button>
-                    <a href="/signup" class="signup">Dont have an account?</a>
+                    <input type="email" placeholder="Email" class="input" name="email" id="email" required />
+                    <small id="emailError" class="form-error"></small>
+                    
+                    <input type="password" placeholder="Password" class="input" name="password" id="password" required />
+                    <small id="passwordError" class="form-error"></small>
+                    
+                    {% if error_message %}
+                        <p class="error">{{ error_message }}</p>
+                    {% endif %}
+                    <button name="login" type="submit">Log In</button>
+                    <a href="/signup" class="signup">Don't have an account?</a>
                 </form>
-            </section>
+
         </section>
+        <script src="../static/JS/login.js"></script>
     </body>
 </html>

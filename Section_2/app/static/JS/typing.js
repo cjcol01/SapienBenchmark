@@ -86,6 +86,7 @@ function finishGame() {
 
     // Display the "Save Score" button
     document.getElementById("saveScoreBtn").style.display = "block";
+    // document.getElementById("reset").style.display = "block";
 }
 
 function calculateWordsPerMinute() {

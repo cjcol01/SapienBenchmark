@@ -4,6 +4,7 @@ from .models import User, PlaySession, Game, UserGame
 from .forms import RegisterForm, LoginForm
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import datetime
+from sqlalchemy.sql import func
 
 # User loader
 @login_manager.user_loader
@@ -13,6 +14,7 @@ def load_user(user_id):
 @app.route('/')
 def home():
     if current_user.is_authenticated:
+        update_user_game()
         username = current_user.username
         signup_date = current_user.signup_date
 
@@ -48,10 +50,10 @@ def home():
         avg_verbal_memory = avg_score_verbal_memory_query.scalar() or 0
         avg_verbal_memory = int(round(avg_verbal_memory))
 
-        reaction_percentage = 50
-        aim_percentage = 60
-        typing_percentage = 70
-        verb_mem_percentage = 80
+        reaction_percentage = calculate_percentile(avg_reaction, GAME_ID_FOR_REACTION, 1)
+        aim_percentage = calculate_percentile(avg_aim, GAME_ID_FOR_AIM, 2)
+        typing_percentage = calculate_percentile(avg_typing, GAME_ID_FOR_TYPING, 3)
+        verb_mem_percentage = calculate_percentile(avg_verbal_memory, GAME_ID_FOR_VERBAL_MEMORY, 4)
 
         return render_template('home.html', username=username, 
         signup_date=signup_date, 
@@ -64,11 +66,53 @@ def home():
         # Handle guest or non-logged in users
         signup_date = datetime.now()
         return render_template('home.html', username="guest", signup_date=signup_date, 
-        avg_reaction=None, reaction_percentage=None, 
-        avg_aim=None, aim_percentage=None,
-        avg_typing=None, typing_percentage=None,
-        avg_verbal_memory=None, verb_mem_percentage=None )
+        avg_reaction=None, reaction_percentage="", 
+        avg_aim=None, aim_percentage="",
+        avg_typing=None, typing_percentage="",
+        avg_verbal_memory=None, verb_mem_percentage="" )
 
+# def calculate_percentile(user_score, game_id):
+#     # Ensure user_score is an integer
+#     user_score = int(user_score)
+
+#     # Get all scores for the game, convert them to integers, and handle empty strings
+#     all_scores = PlaySession.query.with_entities(PlaySession.score).filter_by(game_id=game_id).all()
+#     all_scores = [int(score[0]) if score[0] != '' else 0 for score in all_scores]  # Handle empty strings
+
+#     if not all_scores:
+#         return 0  # In case there are no other scores
+
+#     # Count how many scores are less than or equal to the user's score
+#     count_less_than_user = sum(score <= user_score for score in all_scores)
+#     percentile = (count_less_than_user / (len(all_scores))) * 100
+#     return round(percentile, 2)  # Rounded to two decimal places
+
+def calculate_percentile(user_score, game_id, game_id2):
+    # Ensure user_score is an integer
+    user_score = int(user_score)
+
+    # Fetch the Game object
+    game = Game.query.get(game_id2)
+    if not game:
+        return 0  # Return a default value if the game does not exist
+
+    high_score_good = game.high_score_good
+
+    # Get all scores for the game, convert them to integers, and handle empty strings
+    all_scores = PlaySession.query.with_entities(PlaySession.score).filter_by(game_id=game_id).all()
+    all_scores = [int(score[0]) if score[0] != '' else 0 for score in all_scores]
+
+    if not all_scores:
+        return 0  # In case there are no other scores
+
+    # Count based on whether a high score is good or not
+    if high_score_good:
+        count_relevant = sum(score <= user_score for score in all_scores)
+    else:
+        count_relevant = sum(score >= user_score for score in all_scores)
+
+    percentile = (count_relevant / len(all_scores)) * 100
+    return round(percentile, 2)  # Rounded to two decimal places
 
 
 @app.route('/aimtrainer')
@@ -90,12 +134,17 @@ def verbal_memory():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
+    error_message = None
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
             return redirect(url_for("home"))
-    return render_template("login.html", form=form)
+        else:
+            error_message = 'Invalid email or password.'
+    response = render_template("login.html", form=form, error_message=error_message)
+    error_message = None
+    return response
 
 @app.route("/logout", methods=["GET", "POST"])
 @login_required
@@ -189,6 +238,46 @@ def user_sessions(user_id):
 
     # You can now access game details in your template through each session
     return render_template('user_sessions.html', sessions=sessions)
+
+
+# Function to update UserGame table
+def update_user_game():
+    # Calculate total plays and average score for each user-game combination
+    play_data = db.session.query(
+        PlaySession.user_id,
+        PlaySession.game_id,
+        func.count(PlaySession.id).label('total_plays'),
+        func.avg(PlaySession.score).label('average_score')
+    ).group_by(PlaySession.user_id, PlaySession.game_id).all()
+
+    for data in play_data:
+        user_id, game_id, total_plays, average_score = data
+
+        # Check if record exists in UserGame
+        user_game = UserGame.query.filter_by(user_id=user_id, game_id=game_id).first()
+
+        if user_game:
+            # Update existing record
+            user_game.total_plays = total_plays
+            user_game.average_score = average_score
+        else:
+            # Create new record and add to session
+            new_user_game = UserGame(
+                user_id=user_id,
+                game_id=game_id,
+                total_plays=total_plays,
+                average_score=average_score
+            )
+            db.session.add(new_user_game)
+    
+    # Commit changes to the database
+    db.session.commit()
+
+@app.route('/reaction_stats')
+def reaction_stats():
+    update_user_game()
+    return render_template('reaction_stats.html')
+
 
 # Run the application
 if __name__ == '__main__':
