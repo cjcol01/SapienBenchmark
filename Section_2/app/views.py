@@ -99,9 +99,9 @@ def calculate_percentile(user_score, game_id, game_id2):
 
     # Count based on whether a high score is good or not
     if high_score_good:
-        count_relevant = sum(score >= user_score for score in all_scores)
-    else:
         count_relevant = sum(score <= user_score for score in all_scores)
+    else:
+        count_relevant = sum(score >= user_score for score in all_scores)
 
     percentile = (count_relevant / len(all_scores)) * 100
     return round(percentile, 2)  # Rounded to two decimal places

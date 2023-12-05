@@ -24,23 +24,24 @@ function getRandomQuote() {
 }
 
 function initializeGame() {
+    quoteElement.textContent = getRandomQuote();
+    inputElement.addEventListener("input", handleInput);
+}
+
+function handleInput() {
     if (!gameStarted) {
+        startGame();
         gameStarted = true;
-        quoteElement.textContent = getRandomQuote();
-        startTimer();
-        startWpmTimer();
+        // Remove the input event listener after starting the game
+        inputElement.removeEventListener("input", handleInput);
     }
-    inputElement.addEventListener("input", () => {
-        updateInputStyle();
-        checkCompletion();
-    });
+    updateInputStyle();
+    checkCompletion();
 }
 
 function startGame() {
-    if (timeLeft === 60) {
-        // Start the game if the timer is at the full duration
-        initializeGame();
-    }
+    startTimer();
+    startWpmTimer();
 }
 
 function startTimer() {
@@ -122,11 +123,15 @@ function updateInputStyle() {
     inputElement.className = inputText.length === 0 ? "" : "correct";
 }
 
-inputElement.addEventListener("input", () => {
-    updateInputStyle();
-    checkCompletion(); // Add this line to check completion on each input
-});
+// inputElement.removeEventListener("input", () => {
+//     updateInputStyle();
+//     checkCompletion();
+// });
 
+window.onload = function () {
+    initializeGame(); // Set the initial quote
+    inputElement.focus(); // Focus on the input box
+};
+
+// Update the focus event listener
 inputElement.addEventListener("focus", initializeGame);
-resetButton.addEventListener("click", resetGame);
-window.onload = resetGame;
