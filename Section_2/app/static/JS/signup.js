@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Validate email (simple validation; update as needed)
         const email = document.getElementById("email").value;
         if (!email.includes("@")) {
-            document.getElementById("emailError").textContent = "Please enter a valid email.";
+            document.getElementById("passwordError").textContent = "Please enter a valid email.";
             return;
         }
 
@@ -32,8 +32,19 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("passwordError").textContent = "Passwords do not match.";
             return;
         }
+        // AJAX request to check if email is already registered
+        $.post("/check_email", { email: email }, function (data) {
+            if (data.isTaken) {
+                console.log("Email already registered");
+                document.getElementById("passwordError").textContent =
+                    "Email is already registered.";
+            } else {
+                // If all checks pass, submit the form
+                form.submit();
+            }
+        });
 
-        // If all checks pass, submit the form
-        form.submit();
+        // // If all checks pass, submit the form
+        // form.submit();
     });
 });

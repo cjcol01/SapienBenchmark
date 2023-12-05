@@ -27,7 +27,7 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Dashboard</a></li>
-                <li><a href="#">Stats</a></li>
+                <!-- <li><a href="#">Stats</a></li> -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Games
                         <span class="caret"></span></a>
@@ -79,9 +79,9 @@
                                 <td class="left name">Reaction Time</td>
                                 <td class="left">
                                     <button class="btn btn-primary" onclick="location.href='/reaction'">Play</button>
-                                    <button class="btn btn-primary" onclick="location.href='/reaction_stats'">Stats</button>                                </td>
+                                    <!-- <button class="btn btn-primary" onclick="location.href='/reaction_stats'">Stats</button>                                </td> -->
                                 <td class="left score">{{ (avg_reaction or 'N/A') ~ " ms" }}</td>
-                                <td>
+                                <td class="centre">
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: {{ reaction_percentage }}%;">
                                             {% if reaction_percentage %}
@@ -95,10 +95,10 @@
                                 <td class="left name">Aim Trainer</td>
                                 <td class="left">
                                     <button class="btn btn-primary" onclick="location.href='/aimtrainer'">Play</button>
-                                    <button class="btn btn-primary" onclick="location.href='/aimtrainer'">Stats</button>
+                                    <!-- <button class="btn btn-primary" onclick="location.href='/aimtrainer'">Stats</button> -->
                                 </td>
                                 <td class="left score">{{ (avg_aim or 'N/A') ~ " ms" }}</td>
-                                <td class="prog">
+                                <td class="centre">
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: {{ aim_percentage }}%;">
                                             {% if aim_percentage %}
@@ -112,10 +112,10 @@
                                 <td class="left name">Typing Speed Test</td>
                                 <td class="left">
                                     <button class="btn btn-primary" onclick="location.href='/typing'">Play</button>
-                                    <button class="btn btn-primary" onclick="location.href='/typing'">Stats</button>
+                                    <!-- <button class="btn btn-primary" onclick="location.href='/typing'">Stats</button> -->
                                 </td>
                                 <td class="left score">{{ (avg_typing or 'N/A') ~ " WPM" }}</td>
-                                <td>
+                                <td class="centre">
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: {{ typing_percentage }}%;">
                                             {% if typing_percentage %}
@@ -129,10 +129,10 @@
                                 <td class="left name">Verbal Memory Test</td>
                                 <td class="left">
                                     <button class="btn btn-primary" onclick="location.href='/verbalmemory'">Play</button>
-                                    <button class="btn btn-primary" onclick="location.href='/verbalmemory'">Stats</button>
+                                    <!-- <button class="btn btn-primary" onclick="location.href='/verbalmemory'">Stats</button> -->
                                 </td>
                                 <td class="left score">{{ (avg_verbal_memory or 'N/A') ~ " Points" }}</td>
-                                <td>
+                                <td class="centre">
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: {{ verb_mem_percentage if verb_mem_percentage else '0' }}%;">
                                             {% if verb_mem_percentage %}

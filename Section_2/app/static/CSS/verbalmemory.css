@@ -9,7 +9,7 @@
 }
 
 body {
-    background-color: #e6e8f4;
+    background-color: rgba(88, 88, 250, 0.24);
     transition: background-color 0.5s;
 }
 

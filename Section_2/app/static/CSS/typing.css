@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #e6e8f4;
+    background-color: rgba(88, 88, 250, 0.24);
 }
 
 #game {
@@ -31,7 +31,8 @@ body {
 }
 
 #input.incorrect {
-    border: 7px solid red;
+    /* border: 7px solid red; */
+    border: 7px solid #ffc628;
 }
 
 #textAreaWrapper {

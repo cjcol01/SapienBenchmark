@@ -171,3 +171,27 @@ th {
     color: Black;
     font-size: medium;
 }
+
+.progress-container {
+    display: flex;
+    align-items: center;
+}
+
+/* .progress-container {
+    line-height: 32px;
+} */
+
+.centre {
+    position: relative; /* Establishes a positioning context for absolute children */
+    margin-bottom: 0px !important;
+    margin-top: 20px !important;
+}
+
+.centre .progress {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 90%; /* Ensures the progress bar spans the full width of the container */
+    height: [height of your progress bar]; /* Specify the height of your progress bar */
+}

@@ -35,7 +35,7 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="/">Dashboard</a></li>
-                        <li><a href="#">Stats</a></li>
+                        <!-- <li><a href="#">Stats</a></li> -->
                         <li class="dropdown active">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"
                                 >Games <span class="caret"></span
@@ -74,9 +74,6 @@
     </head>
     <body>
         <div class="reactionTestArea">
-            <p>Click Count: <span id="clickCount">0</span></p>
-            <p>Time to Click: <span id="timeToClick">0</span> ms</p>
-
             <!-- target used from human benchmark https://humanbenchmark.com/tests/aim -->
             <div class="box">
                 <div data-aim-target="true" class="css-q4kt6s e6yfngs1">
@@ -94,6 +91,11 @@
                     <div class="css-17nnhwz e6yfngs4" style="width: 100px; height: 2px"></div>
                 </div>
             </div>
+            <div id="gameOverPopup" class="game-over-popup" style="display: none">
+                <p id="averageTimeMessage"></p>
+                <p>Save your score and try again!</p>
+            </div>
+
             <button id="saveScore" style="display: none" onclick="saveScore()">Save Score</button>
         </div>
 

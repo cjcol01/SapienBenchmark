@@ -16,13 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const timeTaken = currentTime - lastClickTime;
         totalTimeToClick += timeTaken; // Add the time taken for this click to the total
 
-        clickCountDisplay.textContent = clickCount;
-        timeToClickDisplay.textContent = timeTaken;
+        // clickCountDisplay.textContent = clickCount;
+        // timeToClickDisplay.textContent = timeTaken;
         lastClickTime = currentTime;
 
         if (clickCount < MAX_CLICKS) {
             moveTargetRandomly();
         } else {
+            endAimTest();
             saveScoreButton.style.display = "block";
             target.style.display = "none";
         }
@@ -56,9 +57,13 @@ function endAimTest() {
     const score = calculateFinalScore();
     document.getElementById("scoreInput").value = score;
 
-    // Submit the form
-    document.getElementById("scoreForm").submit();
+    // Display the game over popup
+    const gameOverPopup = document.getElementById("gameOverPopup");
+    document.getElementById("averageTimeMessage").textContent = score + " MS";
+    gameOverPopup.style.display = "block";
+    console.log("Game Over");
 }
 function saveScore() {
-    endAimTest();
+    document.getElementById("scoreForm").submit();
+    // endAimTest();
 }

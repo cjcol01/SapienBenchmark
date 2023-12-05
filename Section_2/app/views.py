@@ -1,18 +1,24 @@
-from flask import render_template, redirect, url_for, flash, session, request
-from . import app, db, bcrypt, login_manager
-from .models import User, PlaySession, Game, UserGame
-from .forms import RegisterForm, LoginForm
+# library imports
+from flask import render_template, redirect, url_for, flash, session, request, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
+from . import app, db, bcrypt, login_manager
 from datetime import datetime
 from sqlalchemy.sql import func
+
+# my file imports
+from .models import User, PlaySession, Game, UserGame
+from .forms import RegisterForm, LoginForm
 
 # User loader
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
+# home route, loads info from db and displays data
 @app.route('/')
 def home():
+    # checks if user is logged in and sets data
     if current_user.is_authenticated:
         update_user_game()
         username = current_user.username
@@ -55,6 +61,7 @@ def home():
         typing_percentage = calculate_percentile(avg_typing, GAME_ID_FOR_TYPING, 3)
         verb_mem_percentage = calculate_percentile(avg_verbal_memory, GAME_ID_FOR_VERBAL_MEMORY, 4)
 
+        # return all neccessary data 
         return render_template('home.html', username=username, 
         signup_date=signup_date, 
         avg_reaction=str(avg_reaction), reaction_percentage=reaction_percentage, 
@@ -65,28 +72,13 @@ def home():
     else:
         # Handle guest or non-logged in users
         signup_date = datetime.now()
-        return render_template('home.html', username="guest", signup_date=signup_date, 
+        return render_template('home.html', username="Guest", signup_date=signup_date, 
         avg_reaction=None, reaction_percentage="", 
         avg_aim=None, aim_percentage="",
         avg_typing=None, typing_percentage="",
         avg_verbal_memory=None, verb_mem_percentage="" )
 
-# def calculate_percentile(user_score, game_id):
-#     # Ensure user_score is an integer
-#     user_score = int(user_score)
-
-#     # Get all scores for the game, convert them to integers, and handle empty strings
-#     all_scores = PlaySession.query.with_entities(PlaySession.score).filter_by(game_id=game_id).all()
-#     all_scores = [int(score[0]) if score[0] != '' else 0 for score in all_scores]  # Handle empty strings
-
-#     if not all_scores:
-#         return 0  # In case there are no other scores
-
-#     # Count how many scores are less than or equal to the user's score
-#     count_less_than_user = sum(score <= user_score for score in all_scores)
-#     percentile = (count_less_than_user / (len(all_scores))) * 100
-#     return round(percentile, 2)  # Rounded to two decimal places
-
+# calculates what percentile the user falls in for various games
 def calculate_percentile(user_score, game_id, game_id2):
     # Ensure user_score is an integer
     user_score = int(user_score)
@@ -115,26 +107,33 @@ def calculate_percentile(user_score, game_id, game_id2):
     return round(percentile, 2)  # Rounded to two decimal places
 
 
+# simple aimtrainer route 
 @app.route('/aimtrainer')
 def aim_trainer():
     return render_template('aimtrainer.html')
 
+# simple reaction route 
 @app.route('/reaction')
 def reaction():
     return render_template('reaction.html')
 
+# simple typing route 
 @app.route('/typing')
 def typing():
     return render_template('typing.html')
 
+# simple verbal memory route 
 @app.route('/verbalmemory')
 def verbal_memory():
     return render_template('verbalmemory.html')
 
+# login route, passes data to db for verification
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     error_message = None
+
+    # form submitted - query db
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
@@ -146,6 +145,7 @@ def login():
     error_message = None
     return response
 
+# simple logout method, returns to home page
 @app.route("/logout", methods=["GET", "POST"])
 @login_required
 def logout():
@@ -153,21 +153,46 @@ def logout():
     session.clear()
     return redirect(url_for("home"))
 
+# signup page, passes client-side validated data to db for more validation check
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     form = RegisterForm()
+
     if form.validate_on_submit():
+        # Check if the email already exists in the database
+        existing_user = User.query.filter_by(email=form.email.data).first()
+        if existing_user:
+            flash('Email already registered. Please log in or use a different email.', 'error')
+            return redirect(url_for('signup'))
+
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        # Include email data from the form
         new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(new_user)
-        db.session.commit()
+        try:
+            db.session.commit()
+        except sqlalchemy.exc.IntegrityError:
+            db.session.rollback()
+            flash('An error occurred. Please try again.', 'error')
+            return redirect(url_for('signup'))
+
         flash('Registration successful! You can now log in.', 'success')
         return redirect(url_for("login"))
+
     return render_template("signup.html", form=form)
+
+@app.route('/check_email', methods=['POST'])
+def check_email():
+    email = request.form['email']
+    user = User.query.filter_by(email=email).first()
+    return jsonify({'isTaken': user is not None})
+
 
 # move to config
 GAME_ID_FOR_REACTION = "Reaction"
+
+
+# submit reaction score to db
+# probably a bad way of doing things
 @app.route('/submit_reaction_score', methods=['POST'])
 def submit_reaction_score():
     if not current_user.is_authenticated:
@@ -185,6 +210,10 @@ def submit_reaction_score():
     return redirect(url_for('home'))
 
 GAME_ID_FOR_AIM = "Aim"
+
+
+# submit aim score to db
+# probably a bad way of doing things
 @app.route('/submit_aim_score', methods=['POST'])
 def submit_aim_score():
     if not current_user.is_authenticated:
@@ -201,6 +230,9 @@ def submit_aim_score():
     return redirect(url_for('home'))
 
 GAME_ID_FOR_TYPING = "Typing"
+
+# submit typing score to db
+# probably a bad way of doing things
 @app.route('/submit_typing_score', methods=['POST'])
 def submit_typing_score():
     if not current_user.is_authenticated:
@@ -216,6 +248,9 @@ def submit_typing_score():
     return redirect(url_for('home'))
 
 GAME_ID_FOR_VERBAL_MEMORY = "Verb mem"
+
+# submit verbmem score to db
+# probably a bad way of doing things
 @app.route('/submit_verbal_memory_score', methods=['POST'])
 def submit_verbal_memory_score():
     if not current_user.is_authenticated:
@@ -231,6 +266,7 @@ def submit_verbal_memory_score():
 
     return redirect(url_for('home'))
 
+# manage user session - not in use atm
 @app.route('/user/<int:user_id>/sessions')
 def user_sessions(user_id):
     # Query to fetch all play sessions with their related game for a specific user
@@ -272,11 +308,6 @@ def update_user_game():
     
     # Commit changes to the database
     db.session.commit()
-
-@app.route('/reaction_stats')
-def reaction_stats():
-    update_user_game()
-    return render_template('reaction_stats.html')
 
 
 # Run the application
