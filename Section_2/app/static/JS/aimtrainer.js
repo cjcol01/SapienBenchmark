@@ -7,10 +7,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const timeToClickDisplay = document.getElementById("timeToClick");
     const gameArea = document.querySelector(".box");
     const saveScoreButton = document.getElementById("saveScore");
+    const preGameTextTop = document.getElementById("preGameTextTop");
+    const preGameTextBottom = document.getElementById("preGameTextBottom");
+
     let lastClickTime = Date.now();
-    const MAX_CLICKS = 3;
+    const MAX_CLICKS = 5;
 
     target.addEventListener("click", () => {
+        if (clickCount === 0) {
+            // This means the game is just starting
+            preGameTextTop.style.display = "none";
+            preGameTextBottom.style.display = "none";
+            target.style.backgroundColor = "red"; // Change target background to red
+        }
         clickCount++;
         const currentTime = Date.now();
         const timeTaken = currentTime - lastClickTime;

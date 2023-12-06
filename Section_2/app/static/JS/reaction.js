@@ -5,7 +5,10 @@ let attempts = 0;
 let totalReactionTime = 0;
 
 function endTest(averageReactionTime) {
-    console.log("endTest called with averageReactionTime:", averageReactionTime);
+    console.log(
+        "endTest called with averageReactionTime:",
+        averageReactionTime
+    );
 
     const saveButton = document.getElementById("saveScore");
     const retryButton = document.getElementById("tryAgain");
@@ -30,7 +33,8 @@ function endTest(averageReactionTime) {
 
     // Set the score in the hidden input field
     console.log(averageReactionTime.toFixed(0));
-    document.getElementById("scoreInput").value = averageReactionTime.toFixed(0);
+    document.getElementById("scoreInput").value =
+        averageReactionTime.toFixed(0);
 
     // Automatically submit the form
     document.getElementById("scoreForm").submit();
@@ -64,10 +68,10 @@ function handleClick() {
         message.textContent = "Wait for green";
         dissapear.textContent = "";
 
-        const randomDelay = Math.random() * 2000 + 10; // Random time between 1 and 3 seconds
+        const randomDelay = Math.random() * 2000 + 1000; // Random time between 1 and 3 seconds
         timeout = setTimeout(() => {
             testArea.classList.replace("red", "green");
-            if (attempts <= 2) {
+            if (attempts <= 3) {
                 message.textContent = "Click!";
                 startTime = new Date();
             }
@@ -80,13 +84,15 @@ function handleClick() {
         attempts++;
         testArea.classList.remove("green");
 
-        if (attempts >= 2) {
+        if (attempts >= 3) {
             const averageReactionTime = totalReactionTime / attempts;
             // Call endTest with the average reaction time
             endTest(averageReactionTime);
         } else {
             // If not, show the reaction time and reset for another try
-            reactionTimeDisplay.textContent = `${reactionTime} ms. Try ${3 - attempts} more times!`;
+            reactionTimeDisplay.textContent = `${reactionTime} ms. Try ${
+                3 - attempts
+            } more times!`;
             message.textContent = "Click to keep going";
             testArea.classList.add("blue");
         }

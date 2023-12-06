@@ -32,8 +32,6 @@ function handleInput() {
     if (!gameStarted) {
         startGame();
         gameStarted = true;
-        // Remove the input event listener after starting the game
-        inputElement.removeEventListener("input", handleInput);
     }
     updateInputStyle();
     checkCompletion();
@@ -42,6 +40,7 @@ function handleInput() {
 function startGame() {
     startTimer();
     startWpmTimer();
+    inputElement.addEventListener("input", updateInputStyle);
 }
 
 function startTimer() {
