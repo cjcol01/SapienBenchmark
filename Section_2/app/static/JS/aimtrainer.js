@@ -1,15 +1,18 @@
 let totalTimeToClick = 0;
 let clickCount = 0;
 
+// event listner to play on page load
 document.addEventListener("DOMContentLoaded", () => {
+    // getting elements
     const target = document.querySelector('[data-aim-target="true"]');
     const clickCountDisplay = document.getElementById("clickCount");
     const timeToClickDisplay = document.getElementById("timeToClick");
     const gameArea = document.querySelector(".box");
     const saveScoreButton = document.getElementById("saveScore");
     let lastClickTime = Date.now();
-    const MAX_CLICKS = 3;
+    const MAX_CLICKS = 5;
 
+    // listening for user click
     target.addEventListener("click", () => {
         clickCount++;
         const currentTime = Date.now();
@@ -29,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // moves targets to random location when user clicks
     function moveTargetRandomly() {
         const maxLeft = gameArea.clientWidth - target.offsetWidth;
         const maxTop = gameArea.clientHeight - target.offsetHeight;
@@ -41,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// calculates score based on average time taken to clikc
 function calculateFinalScore() {
     console.log("Total Time to Click:", totalTimeToClick);
     console.log("Click Count:", clickCount);
@@ -53,6 +58,8 @@ function calculateFinalScore() {
         return 0; // Default score if no clicks were made
     }
 }
+
+// ends the test when all targets have been clicked on
 function endAimTest() {
     const score = calculateFinalScore();
     document.getElementById("scoreInput").value = score;
@@ -63,6 +70,8 @@ function endAimTest() {
     gameOverPopup.style.display = "block";
     console.log("Game Over");
 }
+
+// calls save score when button is clicked
 function saveScore() {
     document.getElementById("scoreForm").submit();
     // endAimTest();

@@ -4,9 +4,11 @@ let timeout;
 let attempts = 0;
 let totalReactionTime = 0;
 
+// function to end test when when test complete
 function endTest(averageReactionTime) {
     console.log("endTest called with averageReactionTime:", averageReactionTime);
 
+    // getting elements
     const saveButton = document.getElementById("saveScore");
     const retryButton = document.getElementById("tryAgain");
     const reactionTimeDisplay = document.getElementById("reactionTime");
@@ -36,6 +38,7 @@ function endTest(averageReactionTime) {
     document.getElementById("scoreForm").submit();
 }
 
+// allows test to be restarted. removed from current version
 function tryAgain() {
     // Reset the test
     attempts = 0;
@@ -47,6 +50,7 @@ function tryAgain() {
     document.getElementById("reactionTestArea").classList.add("blue");
 }
 
+// handle and time click events
 function handleClick() {
     const testArea = document.getElementById("reactionTestArea");
     const message = document.getElementById("name");
@@ -73,6 +77,7 @@ function handleClick() {
             }
         }, randomDelay);
     }
+    // tests if user clicked appropriatly
     if (testArea.classList.contains("green")) {
         endTime = new Date();
         const reactionTime = endTime - startTime;

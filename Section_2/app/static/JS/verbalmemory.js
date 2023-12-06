@@ -1,3 +1,4 @@
+// long word list 
 word_list = [
     "apple",
     "tree",
@@ -98,10 +99,12 @@ let currentWord = "";
 let score = 0;
 let end_flag = 0;
 
+// gets random words from word list
 function getRandomWord() {
     return word_list[Math.floor(Math.random() * word_list.length)];
 }
 
+// ends game 
 function endGame() {
     // Set the score in the form and show the save button
     document.getElementById("verbalMemoryScoreInput").value = score;
@@ -111,6 +114,7 @@ function endGame() {
     document.getElementById("gameButton").style.display = "none";
 }
 
+// updates score when button clicked
 function updateScore(correct) {
     const reactionTestArea = document.getElementById("reactionTestArea");
 
@@ -134,11 +138,13 @@ function updateScore(correct) {
     document.getElementById("scoreDisplay").innerText = "Score: " + score;
 }
 
+// gets new word
 function displayWord() {
     currentWord = getRandomWord();
     document.getElementById("wordDisplay").innerText = currentWord;
 }
 
+// tests if the user was correct or not
 function userResponse(seen) {
     let correct = false;
 
