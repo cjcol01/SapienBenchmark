@@ -1,3 +1,4 @@
+// getting elements
 const quoteElement = document.getElementById("quote");
 const inputElement = document.getElementById("input");
 const timerElement = document.getElementById("timer");
@@ -19,15 +20,18 @@ const quotes = [
     "Imagine if Einstein and Newton collaborated on a project. That's the level of mind-blowing insight this coursework offers.",
 ];
 
+// get random quote from quote list
 function getRandomQuote() {
     return quotes[Math.floor(Math.random() * quotes.length)];
 }
 
+// sets up the game
 function initializeGame() {
     quoteElement.textContent = getRandomQuote();
     inputElement.addEventListener("input", handleInput);
 }
 
+// handles user input and checks for typo
 function handleInput() {
     if (!gameStarted) {
         startGame();
@@ -37,12 +41,14 @@ function handleInput() {
     checkCompletion();
 }
 
+// starts game
 function startGame() {
     startTimer();
     startWpmTimer();
     inputElement.addEventListener("input", updateInputStyle);
 }
 
+// starts timer
 function startTimer() {
     timer = setInterval(() => {
         timeLeft--;
@@ -55,6 +61,7 @@ function startTimer() {
     }, 1000);
 }
 
+// circular - remove
 function startWpmTimer() {
     updateWpmDisplay(); // Initial update when the game starts
     wpmTimer = setInterval(updateWpmDisplay, 200);
@@ -65,6 +72,7 @@ function updateWpmDisplay() {
     wpmElement.textContent = `WPM: ${wpm}`;
 }
 
+// checks if string matches 
 function checkCompletion() {
     const currentInput = inputElement.value.trim();
     const currentQuote = quoteElement.textContent.trim();
@@ -76,6 +84,7 @@ function checkCompletion() {
     }
 }
 
+// finsihes game 
 function finishGame() {
     inputElement.disabled = true;
     const finalWpm = calculateWordsPerMinute();
@@ -95,6 +104,7 @@ function calculateWordsPerMinute() {
     return Math.round(wordsTyped / timeSpent);
 }
 
+
 function resetGame() {
     clearInterval(timer);
     clearInterval(wpmTimer);
@@ -108,6 +118,8 @@ function resetGame() {
     inputElement.disabled = false;
 }
 
+
+// changes border color style based on typo
 function updateInputStyle() {
     const quoteText = quoteElement.textContent;
     const inputText = inputElement.value;
@@ -122,11 +134,7 @@ function updateInputStyle() {
     inputElement.className = inputText.length === 0 ? "" : "correct";
 }
 
-// inputElement.removeEventListener("input", () => {
-//     updateInputStyle();
-//     checkCompletion();
-// });
-
+// starts game and focuses on input box
 window.onload = function () {
     initializeGame(); // Set the initial quote
     inputElement.focus(); // Focus on the input box
