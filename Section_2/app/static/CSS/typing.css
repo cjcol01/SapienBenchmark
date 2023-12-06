@@ -89,3 +89,7 @@ button {
 #reset {
     display: none;
 }
+
+label {
+    width: 100%;
+}

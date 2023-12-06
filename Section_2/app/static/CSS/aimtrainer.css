@@ -18,6 +18,11 @@ html {
     transform: translate(-50%, -50%);
 }
 
+.e6yfngs1 {
+    position: relative;
+    margin-top: 100px;
+    z-index: 10;
+}
 .reactionTestArea {
     width: 100vw;
     height: 60vh;
@@ -94,6 +99,7 @@ body {
     border-radius: 50%;
     border: 2px solid white;
     transform: translate(-50%, -50%);
+    background-color: rgba(149, 195, 232, 0.5);
 }
 
 button {
@@ -115,4 +121,20 @@ button {
     transform: translate(-50%, -100%);
     z-index: 1000;
     text-align: center;
+}
+
+.pre-game-text-bottom {
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    font-size: 2vw;
+    margin-bottom: 100px;
+}
+
+.pre-game-text-top {
+    margin-top: 100px;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    font-size: 3vw;
 }
