@@ -79,23 +79,54 @@
                     <h1>Sign Up Page</h1>
                 </div>
 
-                    <form method="POST" action="" id="signupForm">
-                        {{ form.hidden_tag() }}
+                <form method="POST" action="" id="signupForm">
+                    {{ form.hidden_tag() }}
 
-                        <input type="email" placeholder="Email" class="input" name="email" id="email" required />
-                        <small id="emailError" class="form-error"></small>
+                    <label id="space-email" for="email">Email</label>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        class="input"
+                        name="email"
+                        id="email"
+                        required
+                    />
+                    <small id="emailError" class="form-error"></small>
 
-                        <input type="text" placeholder="Username" class="input" name="username" id="username" required />
-                        <small id="usernameError" class="form-error"></small>
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        class="input"
+                        name="username"
+                        id="username"
+                        required
+                    />
+                    <small id="usernameError" class="form-error"></small>
 
-                        <input type="password" placeholder="Password" class="input" name="password" id="password" required />
-                        <input type="password" placeholder="Confirm Password" class="input" name="confirm" id="confirmPassword" required />
-                        <small id="passwordError" class="form-error"></small>
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        class="input"
+                        name="password"
+                        id="password"
+                        required
+                    />
 
-                        <button name="signup" type="submit">Sign Up</button>
-                        <a href="/login" class="signup">Already have an account?</a>
-                    </form>
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input
+                        type="password"
+                        placeholder="Confirm Password"
+                        class="input"
+                        name="confirm"
+                        id="confirmPassword"
+                        required
+                    />
+                    <small id="passwordError" class="form-error"></small>
 
+                    <button name="signup" type="submit">Sign Up</button>
+                    <a href="/login" class="signup">Already have an account?</a>
                 </form>
             </section>
         </section>

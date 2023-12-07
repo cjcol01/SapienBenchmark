@@ -78,12 +78,14 @@
                 <div class="top">
                     <h1>Log In Page</h1>
                 </div>
-
                 <form method="POST" action="" id="loginForm">
                     {{ form.hidden_tag() }}
+
+                    <label id="space-email" for="email">Email</label>
                     <input type="email" placeholder="Email" class="input" name="email" id="email" required />
                     <small id="emailError" class="form-error"></small>
                     
+                    <label for="password">Password</label>
                     <input type="password" placeholder="Password" class="input" name="password" id="password" required />
                     <small id="passwordError" class="form-error"></small>
                     
@@ -93,6 +95,7 @@
                     <button name="login" type="submit">Log In</button>
                     <a href="/signup" class="signup">Don't have an account?</a>
                 </form>
+
 
         </section>
         <script src="../static/JS/login.js"></script>
