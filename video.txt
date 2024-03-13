@@ -1,1 +1,0 @@
-typing - paste off, autocomplete off, responsive, page starts focused, timer starts on typing
