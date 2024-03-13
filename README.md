@@ -1,5 +1,5 @@
 # Sapien Benchmark Flask Webapp
-This is a flask webapp based on the website ```https://humanbenchmark.com/```
+This is a flask webapp based on the website ```https://humanbenchmark.com/```  
 Sapien Benchmark was previously hosted at ```http://sapienbenchmark.com``` on Amazon Web Services. Due to high costs, the site was taken down and can now only be accessed locally
 
 ## Features
